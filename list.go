@@ -5,7 +5,7 @@ package disposable
 
 import (
 	"context"
-	"github.com/rocketlaunchr/anti-disposable-email/update"
+	"github.com/dagshub/anti-disposable-email/update"
 	"sync/atomic"
 	"time"
 )
