@@ -4,7 +4,6 @@
 
 <p align="right">
   <a href="https://goreportcard.com/report/github.com/dagshub/anti-disposable-email"><img src="https://goreportcard.com/badge/github.com/dagshub/anti-disposable-email" /></a>
-  <a href="https://gocover.io/github.com/dagshub/anti-disposable-email"><img src="http://gocover.io/_badge/github.com/dagshub/anti-disposable-email" /></a>
 </p>
 
 <p align="center">
