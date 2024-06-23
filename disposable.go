@@ -62,7 +62,6 @@ type ParsedEmail struct {
 // See https://github.com/badoux/checkmail for a more robust validation solution.
 //
 // See also https://davidcel.is/posts/stop-validating-email-addresses-with-regex.
-//
 func ParseEmail(email string, caseSensitive ...bool) (ParsedEmail, error) {
 
 	// Perform basic validation
@@ -108,7 +107,7 @@ func ParseEmail(email string, caseSensitive ...bool) (ParsedEmail, error) {
 	p.Normalized, p.Preferred, p.Extra = normalize(localPart, domain, cs)
 
 	// Check if domain is disposable
-	_, p.Disposable = DisposableList[domain]
+	_, p.Disposable = GetDisposableList()[domain]
 
 	return p, nil
 
