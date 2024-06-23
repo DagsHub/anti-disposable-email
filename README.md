@@ -3,9 +3,8 @@
 </p>
 
 <p align="right">
-  <a href="https://pkg.go.dev/github.com/rocketlaunchr/anti-disposable-email"><img src="http://godoc.org/github.com/rocketlaunchr/anti-disposable-email?status.svg" /></a>
-  <a href="https://goreportcard.com/report/github.com/rocketlaunchr/anti-disposable-email"><img src="https://goreportcard.com/badge/github.com/rocketlaunchr/anti-disposable-email" /></a>
-  <a href="https://gocover.io/github.com/rocketlaunchr/anti-disposable-email"><img src="http://gocover.io/_badge/github.com/rocketlaunchr/anti-disposable-email" /></a>
+  <a href="https://goreportcard.com/report/github.com/dagshub/anti-disposable-email"><img src="https://goreportcard.com/badge/github.com/dagshub/anti-disposable-email" /></a>
+  <a href="https://gocover.io/github.com/dagshub/anti-disposable-email"><img src="http://gocover.io/_badge/github.com/dagshub/anti-disposable-email" /></a>
 </p>
 
 <p align="center">
@@ -22,18 +21,18 @@ If you want to detect if new account registrations are using disposable email se
 
 
 ```
-go get -u github.com/rocketlaunchr/anti-disposable-email
+go get -u github.com/dagshub/anti-disposable-email
 ```
 
 ```go
-import "github.com/rocketlaunchr/anti-disposable-email"
+import "github.com/dagshub/anti-disposable-email"
 ```
 
 
 ## Usage
 
 ```go
-import "github.com/rocketlaunchr/anti-disposable-email"
+import "github.com/dagshub/anti-disposable-email"
 
 ParsedEmail, _ := disposable.ParseEmail("rocketlaunchr.cloud@gmail.com")
 ````
@@ -64,10 +63,9 @@ If you want to block duplicate email addresses from your database, then store as
 This package can auto-update the disposable domain list. It uses the regularly updated list from [disposable-email-domains](https://github.com/disposable-email-domains/disposable-email-domains).
 
 ```go
-import "github.com/rocketlaunchr/anti-disposable-email"
-import "github.com/rocketlaunchr/anti-disposable-email/update"
+import "github.com/dagshub/anti-disposable-email"
 
-update.Update(ctx, &disposable.DisposableList)
+disposable.ScheduleUpdates(time.Hour * 24, time.Second * 30, "", nil)
 ```
 
 
@@ -91,4 +89,5 @@ update.Update(ctx, &disposable.DisposableList)
 
 The license is a modified MIT license. Refer to `LICENSE` file for more details.
 
-**© 2020-24 PJ Engineering and Business Solutions Pty. Ltd.**
+**© 2020-24 PJ Engineering and Business Solutions Pty. Ltd.**  
+**@ 2024 Modifications by DagsHub Inc.** 
