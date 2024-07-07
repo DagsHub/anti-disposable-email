@@ -129,3 +129,49 @@ func Test_ParseEmail_Disposable_domain(t *testing.T) {
 		t.Errorf("expected disposable to be true but got false")
 	}
 }
+
+func Test_IsDisposable_Subdomain(t *testing.T) {
+	listAtomic.Store(map[string]struct{}{
+		"somewhere.eu.org": {},
+	})
+
+	p, err := ParseEmail("someone@someplace.somewhere.eu.org")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !p.Disposable {
+		t.Errorf("expected disposable to be true but got false")
+	}
+
+	p, err = ParseEmail("someone@somewhere.eu.org")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !p.Disposable {
+		t.Errorf("expected disposable to be true but got false")
+	}
+
+	p, err = ParseEmail("someone@eu.org")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if p.Disposable {
+		t.Errorf("expected disposable to be false but got true")
+	}
+
+	p, err = ParseEmail("someone@eu.org")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if p.Disposable {
+		t.Errorf("expected disposable to be false but got true")
+	}
+
+	p, err = ParseEmail("someone@elsewhere.eu.org")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if p.Disposable {
+		t.Errorf("expected disposable to be false but got true")
+	}
+}

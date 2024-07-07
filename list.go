@@ -26,14 +26,17 @@ func init() {
 // The interval is how often the list will be updated. The timeout is how long the update is allowed to take.
 // url is optional to override the default one.
 // If an error occurs during the update, the onError function will be called. If onError returns true, the update process will stop.
-func ScheduleUpdates(interval time.Duration, timeout time.Duration, url string, onError func(error) (shouldStop bool)) {
-	if url == "" {
-		url = "https://raw.githubusercontent.com/disposable-email-domains/disposable-email-domains/master/disposable_email_blocklist.conf"
+func ScheduleUpdates(interval time.Duration, timeout time.Duration, urls []string, onError func(error) (shouldStop bool)) {
+	if len(urls) == 0 {
+		urls = []string{
+			"https://raw.githubusercontent.com/dagshub/disposable-email-domains/main/disposable_email_blocklist.conf",
+			"https://raw.githubusercontent.com/disposable-email-domains/disposable-email-domains/master/disposable_email_blocklist.conf",
+		}
 	}
 	go func() {
 		for {
 			ctx, cancelFunc := context.WithTimeout(context.Background(), timeout)
-			newList, err := update.Update(ctx, url)
+			newList, err := update.Update(ctx, urls)
 			if err != nil && onError != nil && onError(err) {
 				cancelFunc()
 				return

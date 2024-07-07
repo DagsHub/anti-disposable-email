@@ -106,8 +106,19 @@ func ParseEmail(email string, caseSensitive ...bool) (ParsedEmail, error) {
 	// Normalize local part
 	p.Normalized, p.Preferred, p.Extra = normalize(localPart, domain, cs)
 
-	// Check if domain is disposable
-	_, p.Disposable = GetDisposableList()[domain]
+	// Check if domain or any parent domain is disposable
+	for len(domain) > 0 {
+		_, p.Disposable = GetDisposableList()[domain]
+		if p.Disposable {
+			break
+		}
+
+		var found bool
+		_, domain, found = strings.Cut(domain, ".")
+		if !found {
+			break
+		}
+	}
 
 	return p, nil
 
